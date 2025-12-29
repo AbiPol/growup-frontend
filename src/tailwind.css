@@ -69,6 +69,7 @@
 
     /* Mantén o ajusta primario/acento si lo necesitas */
     --color-primary: var(--color-brand-600);
+    --color-secondary:  #FF7A00;
 
 /* Ejemplo: azules más profundos en oscuro */
     --color-info:  var(--color-blue-400);
