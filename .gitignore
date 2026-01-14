@@ -1,0 +1,41 @@
+# ##########################################################################
+# .gitignore Maestro para Proyecto GROWUP (Monorepo)
+# ##########################################################################
+
+# --- IDEs y Sistema ---
+.vscode/
+.idea/
+*.swp
+*.DS_Store
+Thumbs.db
+
+# --- FRONTEND (Angular / PWA) ---
+# Ignora las dependencias de todas las subcarpetas de frontend
+**/node_modules/
+**/dist/
+**/tmp/
+**/.angular/
+**/coverage/
+.npm/
+npm-debug.log*
+
+# --- BACKEND (Java / Spring Boot / Maven / Gradle) ---
+**/target/
+**/build/
+**/.gradle/
+**/bin/
+*.class
+*.jar
+*.war
+*.ear
+
+# --- CONFIGURACIÓN Y SECRETOS (IMPORTANTE) ---
+# No subas nunca tus contraseñas o claves de API
+**/.env
+**/.env.local
+**/application-local.properties
+**/secrets.xml
+
+# --- DOCKER ---
+# Si luego usas bases de datos en Docker, no querrás subir los datos reales
+**/docker/data/
