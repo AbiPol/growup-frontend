@@ -33,29 +33,45 @@ El proyecto está organizado para reflejar una estructura de empresa moderna, fa
 * **`/docs`**: Especificaciones técnicas, manuales y objetivos del proyecto.
 * **`/docker`**: Archivos de configuración para la orquestación de contenedores.
 * **`/infrastructure`**: Infraestructura como código y pipelines de CI/CD (GitHub Actions).
-
+```mermaid
 graph TD
-    User((Usuario)) --> |Accede| PWA[Angular PWA / Microfrontends]
-    
-    subgraph Frontend
-        PWA --> Admin[MF Admin]
-        PWA --> Formador[MF Formador]
+    User((Usuario))
+
+    subgraph Frontend [Capa de Cliente - PWA]
+        PWA[Angular 19 + PrimeNG]
         PWA --> Alumno[MF Alumno]
+        PWA --> Formador[MF Formador]
+        PWA --> Admin[MF Admin]
     end
 
-    subgraph Backend
-        Admin & Formador & Alumno --> Gateway[API Gateway]
-        Gateway --> Auth[Auth Service / JWT]
-        Gateway --> UserSrv[User Service]
-        Gateway --> CourseSrv[Course Service]
+    subgraph Backend [Capa de Microservicios]
+        Gateway[API Gateway]
+        Auth[Spring Security + JWT]
+        UserSrv[User Service]
+        CourseSrv[Course Service]
+        SOAP[SOAP Legacy Service]
     end
 
-    subgraph Cloud
-        Auth --> DB[(PostgreSQL)]
-        CourseSrv --> S3[AWS S3 - Media]
+    subgraph Cloud [Infraestructura AWS]
+        DB[(PostgreSQL/RDS)]
+        S3[AWS S3 - Certificados]
     end
 
-
+    %% Conexiones principales
+    User --> PWA
+    Alumno & Formador & Admin --> Gateway
+    
+    %% Lógica de Negocio
+    Gateway --> Auth
+    Gateway --> UserSrv
+    Gateway --> CourseSrv
+    Gateway --> SOAP
+    
+    %% Persistencia y Datos
+    Auth & UserSrv --> DB
+    CourseSrv --> S3
+    SOAP -.->|Verificación| S3
+```
 ---
 
 ## 👥 Roles de Usuario
