@@ -1,106 +1,49 @@
-# GrowUp – Frontend (Angular + Tailwind CSS + PrimeNG)
+# 🚀 GrowUp - Ecosistema Formativo Inteligente
 
-Plataforma digital para aprendizaje, proyectos y progreso personal/profesional. Este repositorio contiene el **frontend** del MVP de GrowUp.
+**GrowUp** es una plataforma digital integral diseñada para impulsar el crecimiento personal y profesional de los usuarios a través de la gestión de aprendizaje, proyectos y progreso individual. Este proyecto representa un entorno de desarrollo **Fullstack real**, integrando arquitectura escalable, tecnologías modernas y una experiencia de usuario fluida.
 
 ---
 
-## 🧱 Stack
-- **Angular 19** (standalone components, routing, signals)
-- **TypeScript** estricto
-- **Tailwind CSS v4** (utilidades + tema personalizado)
-- **PrimeNG** + **PrimeIcons** (componentes de UI ricos)
-- **ESLint** / Prettier
-- **Git Flow simple** (main, develop, feature/*) y **Conventional Commits**
+## 📋 Visión y Misión
 
-## 📋 Requisitos
-- Node.js ≥ 18 LTS
-- npm ≥ 9
-- Angular CLI (recomendado): `npm i -g @angular/cli`
+* **Visión**: Convertirse en un ecosistema formativo inteligente que combine tecnologías modernas (Angular, Spring Boot, AWS, Docker, CI/CD) con una interfaz moderna y despliegue en la nube.
+* **Misión**: Facilitar el aprendizaje continuo y la organización profesional mediante una plataforma donde los usuarios planifican su formación, comparten avances y miden su progreso en el tiempo.
 
-## 🚀 Puesta en marcha
-```bash
-npm install
-ng serve -o
-```
+---
 
-## 📦 Scripts
-```bash
-# Desarrollo
-ng serve -o
+## 🛠️ Stack Tecnológico
 
-# Produccion
-ng build --configuration production
+| Área | Tecnología | Descripción |
+| :--- | :--- | :--- |
+| **Frontend** | **Angular 19** | Interfaz moderna y responsive con TailwindCSS y PrimeNG. |
+| **Mobile** | **PWA** | Aplicación Web Progresiva con acceso offline y capacidad de instalación. |
+| **Backend** | **Spring Boot** | Arquitectura modular basada en microservicios REST. |
+| **Seguridad** | **JWT** | Spring Security con control de acceso basado en roles (RBAC). |
+| **Infraestructura** | **Docker & AWS** | Contenedores y despliegue en la nube (S3, RDS, ECS/Beanstalk). |
+| **API Doc** | **OpenAPI** | Documentación exhaustiva de endpoints mediante Swagger. |
 
-# Lint
-ng lint
+---
 
-# Tests (si estan configurados)
-ng test
-```
+## 🏗️ Arquitectura del Repositorio (Monorepo)
 
-## 🧭 Arquitectura Frontend
-El frontend se organiza por **capas** y **features**:
+El proyecto está organizado para reflejar una estructura de empresa moderna, facilitando la escalabilidad y el mantenimiento:
 
-```
-src/
-├─ app/
-│  ├─ core/                # Servicios globales, guards, interceptores, config
-│  ├─ layout/              # Shell: header, sidebar, main
-│  ├─ shared/              # Reutilizables (componentes, pipes, directivas)
-│  ├─ features/            # Dominios: landing, auth, dashboard, courses, profile
-│  ├─ theme/               # Tokens CSS, helpers de Tailwind, dark mode
-│  ├─ app.routes.ts        # Arbol de rutas
-│  └─ app.component.ts     # Bootstrap (router-outlet)
-├─ assets/                 # Imagenes, iconos, fuentes
-├─ styles.scss             # Tailwind + estilos globales
-└─ main.ts                 # bootstrapApplication()
-```
+* **`/frontend`**: Microfrontends desarrollados en Angular para los distintos roles.
+* **`/backend`**: Microservicios especializados (Usuarios, Cursos, Progreso, Notificaciones).
+* **`/docs`**: Especificaciones técnicas, manuales y objetivos del proyecto.
+* **`/docker`**: Archivos de configuración para la orquestación de contenedores.
+* **`/infrastructure`**: Infraestructura como código y pipelines de CI/CD (GitHub Actions).
 
-- **core/**: `AuthService` (mock -> JWT despues), `authGuard`, `http.service`, interceptores.
-- **shared/**: UI reutilizable (cards, avatar, loaders), pipes comunes, utilidades.
-- **features/**: paginas autocontenidas (standalone) con sus servicios y modelos.
-- **theme/**: variables CSS (tokens), integracion paleta + Tailwind, modo oscuro.
 
-## 🗺️ Rutas (MVP)
-- Publico: `/landing`, `/auth/login`
-- Privado (con `authGuard`): `/dashboard`, `/courses`, `/profile`
 
-## 🔐 Autenticacion (mock -> real)
-- **MVP**: estado simulado con `signals` y guard de rutas.
-- **Evolucion**: JWT + refresh tokens; interceptor para `Authorization: Bearer`.
+---
 
-## 🎨 Tema
-- Paleta y tipografias definidas en `theme/tokens.css` y `tailwind.config.js`.
-- Helpers (`.bg-surface`, `.text-on-surface`, etc.) en `styles.scss`.
-- **Dark Mode** con clase `.dark` en `<html>` o `<body>`.
+## 👥 Roles de Usuario
 
-## 🧩 UI (PrimeNG + Tailwind)
-- PrimeNG para componentes complejos (tabla, dialogo, datepicker, file upload).
-- Tailwind para layout, spacing, tipografia y color utilitario.
-- Importar **solo** los modulos de PrimeNG usados por pagina para cuidar el bundle.
+* **Alumno**: Crea su perfil, registra cursos, sube proyectos y revisa su progreso.
+* **Formador**: Gestiona cursos, materiales y realiza el seguimiento de alumnos inscritos.
+* **Administrador**: Controla usuarios, estadísticas y configuraciones globales del sistema.
 
-## 🗃️ Estado y datos
-- Servicios por feature; datos **mock** en el MVP.
-- Posteriormente: integracion REST con backend (`/api/v1/...`).
+---
 
-## ✅ Calidad
-- Convenciones: **Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`...)
-- Lint obligatorio en PRs.
-- Tests unitarios en features criticas (auth guard, servicios).
-
-## 🌿 Flujo Git recomendado
-- `main` -> estable.
-- `develop` -> integracion.
-- `feature/*` -> cada historia/tarea.
-- Releases: `release/x.y.z` + tag `vX.Y.Z`.
-
-## 🤖 CI (GitHub Actions)
-Workflow minimo: `npm ci` -> `ng lint` -> `ng build --configuration production` en cada PR a `develop`/`main`.
-
-## 🗺️ Roadmap (resumen)
-- **Sprint 1**: Layout + Routing + Auth mock.
-- **Sprint 2**: Cursos (tabla + dialogo CRUD mock) y Perfil.
-- **Sprint 3**: Tema (tokens/dark) y Accesibilidad base.
-
-## 📄 Licencia
-MIT
+## 🚀
