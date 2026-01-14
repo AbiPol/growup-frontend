@@ -46,4 +46,18 @@ El proyecto está organizado para reflejar una estructura de empresa moderna, fa
 
 ---
 
-## 🚀
+## 🚀 Objetivos Técnicos Clave
+
+* [cite_start]**Pipeline CI/CD**: Implementación de flujo automatizado para construcción, prueba y despliegue en AWS[cite: 12].
+* [cite_start]**Almacenamiento Cloud**: Integración con AWS S3 para la gestión de certificados e imágenes[cite: 15].
+* [cite_start]**Integración Legacy**: Incorporación de un microservicio SOAP para verificación de certificados[cite: 15].
+* [cite_start]**Monitoreo**: Configuración de CloudWatch o Prometheus/Grafana para control de logs y estado del sistema[cite: 15].
+
+---
+
+## 📄 Valor Añadido
+
+[cite_start]GrowUp no es solo una aplicación; es la demostración de dominio del ciclo completo de desarrollo, desde la planificación ágil (Scrum) hasta el mantenimiento y despliegue (DevOps)[cite: 13, 23]. [cite_start]Está diseñado para evolucionar como un portfolio profesional de alto impacto[cite: 24].
+
+---
+*Desarrollado con ❤️ como proyecto integral Fullstack.*
