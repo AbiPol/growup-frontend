@@ -20,7 +20,8 @@
           <div class="flex gap-2 flex-wrap">
             <p-tag [value]="c.category" severity="info"></p-tag>
             <p-tag [value]="c.level" severity="warn"></p-tag>
-            <p-tag [value]="c.status" [severity]="c.status === 'Publicado' ? 'success' : 'secondary'"></p-tag>
+            <p-tag [value]="c.publicationStatus"
+              [severity]="c.publicationStatus === 'Publicado' ? 'success' : 'secondary'"></p-tag>
           </div>
 
           <h1 class="text-3xl lg:text-4xl font-bold text-text dark:text-white">{{ c.name }}</h1>

@@ -33,8 +33,8 @@ export const roleRedirectGuard: CanActivateChildFn = (childRoute, state) => {
 
   // 2. TEACHER / FORMADOR
   if (role === Role.TEACHER) {
-    if (currentUrl.startsWith('/formador')) return true;
-    return router.createUrlTree(['/private/formador']);
+    if (currentUrl.startsWith('/private/teacher')) return true;
+    return router.createUrlTree(['/private/teacher']);
   }
 
   // 3. STUDENT

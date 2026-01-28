@@ -4,10 +4,17 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
-    "types": []
+    "types": [
+      "node"
+    ],
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "esModuleInterop": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "../../projects/teacher/src/**/*.ts",
+    "../../projects/teacher/src/**/*.tsx"
   ],
   "exclude": [
     "src/**/*.spec.ts"

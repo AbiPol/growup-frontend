@@ -9,6 +9,7 @@ import { CourseDetail } from '../../../student/src/app/shared/components/course-
 import { LandingComponent } from './features/landing/landing.component';
 import { Layout } from './features/layout/layout';
 import { NotFound } from './features/not-found/not-found';
+import { teacherMenuMetadata } from '../../../../projects/teacher/src/features/formador.metadata';
 
 
 export const routes: Routes = [
@@ -37,6 +38,10 @@ export const routes: Routes = [
       {
         path: 'student',
         loadChildren: () => import('./utils/student.routes').then(c => c.studentRoutes)
+      },
+      {
+        path: 'teacher',
+        loadChildren: () => import('./utils/teacher.routes').then(c => c.teacherRoutes)
       },
     ]
   },

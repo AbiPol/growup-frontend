@@ -10,6 +10,9 @@ import { Role } from '../models/role.enum';
 })
 export class AuthService {
 
+  //userPrueba = { id: '2', name: 'Student', email: 'student@gmail.com', isActive: true, role: Role.STUDENT }
+  userPrueba = { id: '1', name: 'Teacher', email: 'teacher@gmail.com', isActive: true, role: Role.TEACHER }
+  //userPrueba = { id: '3', name: 'Admin', email: 'admin@gmail.com', isActive: true, role: Role.ADMIN }
   private _statusUser = signal<AuthStatus>(AuthStatus.authenticated);
   private _user = signal<User | null>(null);
   private _token = signal<string | null>(localStorage.getItem('growup-token') || '');
@@ -19,7 +22,7 @@ export class AuthService {
     const token = localStorage.getItem('growup-token');
     //console.log('token: ', token);
     if (token) {
-      this._user.set({ id: '1', name: 'Prueba', email: 'prueba@gmail.com', isActive: true, role: Role.STUDENT });
+      this._user.set(this.userPrueba);
       this._statusUser.set(AuthStatus.authenticated);
       this._token.set(token);
       return true;
@@ -49,20 +52,20 @@ export class AuthService {
 
   userRole() {
     //console.log('role en el servicio: ', this._user());
-    return this._user()?.role;
+    return this.userPrueba.role;
   }
 
   userIsActive() {
-    return this._user()?.isActive;
+    return this.userPrueba.isActive;
   }
 
   login(email: string, password: string): Observable<boolean> {
     //console.log('login');
-    return of(this.handleAuthSuccess({ token: 'token', user: { id: '1', name: 'Prueba', email: 'prueba@gmail.com', isActive: true, role: Role.STUDENT } }));
+    return of(this.handleAuthSuccess({ token: 'teacher-token', user: this.userPrueba }));
   }
 
   logout() {
-    console.log('logout');
+    //console.log('logout');
     this._user.set(null);
     this._statusUser.set(AuthStatus.notAuthenticated);
     this._token.set(null);

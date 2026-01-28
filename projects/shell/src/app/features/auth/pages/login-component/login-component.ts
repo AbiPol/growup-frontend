@@ -56,6 +56,7 @@ export class LoginComponent {
                 this.router.navigate(['/private/student']);
                 break;
               case Role.TEACHER:
+                console.log('TEACHER');
                 this.router.navigate(['/private/teacher']);
                 break;
               case Role.ADMIN:
