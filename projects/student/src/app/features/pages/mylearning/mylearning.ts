@@ -25,35 +25,35 @@ export class Mylearning {
    * Cursos activos (en curso).
    */
   activeCourses = computed(() =>
-    this.allCourses().filter(c => c.status === 'active')
+    this.allCourses().filter(c => c.enrollmentStatus === 'active')
   );
 
   /**
    * Cursos no empezados (nuevos).
    */
   notStartedCourses = computed(() =>
-    this.allCourses().filter(c => c.status === 'not_started')
+    this.allCourses().filter(c => c.enrollmentStatus === 'not_started')
   );
 
   /**
    * Cursos completados.
    */
   completedCourses = computed(() =>
-    this.allCourses().filter(c => c.status === 'completed')
+    this.allCourses().filter(c => c.enrollmentStatus === 'completed')
   );
 
   /**
    * Cursos archivados.
    */
   archivedCourses = computed(() =>
-    this.allCourses().filter(c => c.status === 'archived')
+    this.allCourses().filter(c => c.enrollmentStatus === 'archived')
   );
 
   /**
    * Manejador de acciones para los cursos.
    */
   handleCourseAction(course: EnrolledCourse): void {
-    console.log('Acción sobre el curso:', course.name, 'Estado:', course.status);
+    console.log('Acción sobre el curso:', course.name, 'Estado:', course.enrollmentStatus);
     // Aquí se implementaría la navegación o lógica de negocio (ej: empezar curso)
   }
 }

@@ -36,7 +36,7 @@ export class EnrolledCourseCardComponent {
      * Lógica computada para el texto del botón según el estado.
      */
     get buttonLabel(): string {
-        const status = this.course().status;
+        const status = this.course().enrollmentStatus;
         switch (status) {
             case 'completed': return 'Revisar';
             case 'not_started': return 'Empezar';
@@ -49,7 +49,7 @@ export class EnrolledCourseCardComponent {
      * Lógica computada para el icono del botón según el estado.
      */
     get buttonIcon(): string {
-        const status = this.course().status;
+        const status = this.course().enrollmentStatus;
         switch (status) {
             case 'completed': return 'pi pi-search';
             case 'not_started': return 'pi pi-play';

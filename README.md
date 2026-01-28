@@ -1,166 +1,78 @@
-# GrowUp – Frontend (Angular + Tailwind CSS + PrimeNG)
+# GrowUp – Frontend Híbrido (Angular + React)
 
-Plataforma digital para aprendizaje, proyectos y progreso personal/profesional. Este repositorio contiene el **frontend** del MVP de GrowUp.
+Plataforma digital para aprendizaje, proyectos y progreso personal/profesional. Este repositorio utiliza una arquitectura de micro-frontends permitiendo la convivencia de Angular y React en un mismo Shell.
 
 ---
 
-## 🧱 Stack
-- **Angular 19** (standalone components, routing, signals)
-- **TypeScript** estricto
-- **Tailwind CSS v4** (utilidades + tema personalizado)
-- **PrimeNG** + **PrimeIcons** (componentes de UI ricos)
-- **ESLint** / Prettier
-- **Git Flow simple** (main, develop, feature/*) y **Conventional Commits**
+## 🧱 Stack Tecnológico
 
-## 📋 Requisitos
-- Node.js ≥ 18 LTS
-- npm ≥ 9
-- Angular CLI (recomendado): `npm i -g @angular/cli`
+### Core & Shell (Angular)
+- **Angular 21** (Standalone components, Signals, Router)
+- **PrimeNG** + **PrimeIcons** (UI Angular)
+- **Tailwind CSS v4** (Estilos globales compartidos)
 
-## 🚀 Puesta en marcha
+### Módulos Funcionales (React)
+- **React 19** + **Vite 6** (Módulo Formador)
+- **PrimeReact** (UI React equilibrada con PrimeNG)
+- **React Router 7** (Navegación interna)
+
+---
+
+## 🚀 Arquitectura Híbrida
+
+El proyecto utiliza un sistema de **Micro-frontend Bridge**:
+1. **Shell (Angular)**: Actúa como orquestador, gestionando el Layout global y la autenticación.
+2. **React Bridge**: Un componente Angular dinámico que "monta" aplicaciones de React en contenedores específicos.
+3. **Sincronización de Rutas**: Los enrutadores de Angular y React se comunican mediante eventos `popstate` para mantener la URL sincronizada.
+4. **Metadatos Compartidos**: Las rutas y menús se definen en TypeScript puro (`shared/`) para que ambos frameworks los consuman sin dependencias cruzadas.
+
+---
+
+## 🧭 Estructura del Workspace
+
+```
+growup/
+├─ projects/
+│  ├─ shell/               # Orquestador Angular (Puerto 4200)
+│  ├─ student/             # Módulo Alumno (Angular - Puerto 4201)
+│  └─ teacher/             # Módulo Formador (React - Puerto 4202)
+├─ shared/                 # Estilos, metadatos y lógica compartida
+├─ package.json            # Dependencias raíz (React + Angular)
+└─ tsconfig.json           # Alias globales (@teacher, @shared)
+```
+
+---
+
+## 🛠️ Puesta en marcha
+
+### Instalación
+Desde la raíz (importante para las dependencias híbridas):
 ```bash
 npm install
-ng serve -o
 ```
 
-## 📦 Scripts
+### Ejecutar Shell
 ```bash
-# Desarrollo
-ng serve -o
+npx ng serve shell
+```
+*El Shell cargará dinámicamente el módulo de Alumno (Angular) o Formador (React) según el rol del usuario.*
 
-# Produccion
-ng build --configuration production
-
-# Lint
-ng lint
-
-# Tests (si estan configurados)
-ng test
+### Ejecutar Módulo Teacher (Independiente)
+```bash
+cd projects/teacher
+npm run dev
 ```
 
-## 🧭 Arquitectura Frontend
-El frontend se organiza por **capas** y **features**:
+---
 
-```
-src/
-├─ app/
-│  ├─ core/                # Servicios globales, guards, interceptores, config
-│  ├─ layout/              # Shell: header, sidebar, main
-│  ├─ shared/              # Reutilizables (componentes, pipes, directivas)
-│  ├─ features/            # Dominios: landing, auth, dashboard, courses, profile
-│  ├─ theme/               # Tokens CSS, helpers de Tailwind, dark mode
-│  ├─ app.routes.ts        # Arbol de rutas
-│  └─ app.component.ts     # Bootstrap (router-outlet)
-├─ assets/                 # Imagenes, iconos, fuentes
-├─ styles.scss             # Tailwind + estilos globales
-└─ main.ts                 # bootstrapApplication()
-```
+## 🗺️ Roadmap de Integración
+- [x] Shell Angular 21 con Tailwind 4.
+- [x] Integración de Módulo Alumno (Angular).
+- [x] Integración de Módulo Formador (React).
+- [x] Sincronización de estilos mediante archivos CSS compartidos.
+- [ ] Implementación de State Management compartido (opcional).
 
-- **core/**: `AuthService` (mock -> JWT despues), `authGuard`, `http.service`, interceptores.
-- **shared/**: UI reutilizable (cards, avatar, loaders), pipes comunes, utilidades.
-- **features/**: paginas autocontenidas (standalone) con sus servicios y modelos.
-- **theme/**: variables CSS (tokens), integracion paleta + Tailwind, modo oscuro.
-
-## 🗺️ Rutas (MVP)
-- Publico: `/landing`, `/auth/login`
-- Privado (con `authGuard`): `/dashboard`, `/courses`, `/profile`
-
-## 🔐 Autenticacion (mock -> real)
-- **MVP**: estado simulado con `signals` y guard de rutas.
-- **Evolucion**: JWT + refresh tokens; interceptor para `Authorization: Bearer`.
-
-## 🎨 Tema
-- Paleta y tipografias definidas en `theme/tokens.css` y `tailwind.config.js`.
-- Helpers (`.bg-surface`, `.text-on-surface`, etc.) en `styles.scss`.
-- **Dark Mode** con clase `.dark` en `<html>` o `<body>`.
-
-## 🧩 UI (PrimeNG + Tailwind)
-- PrimeNG para componentes complejos (tabla, dialogo, datepicker, file upload).
-- Tailwind para layout, spacing, tipografia y color utilitario.
-- Importar **solo** los modulos de PrimeNG usados por pagina para cuidar el bundle.
-
-## 🗃️ Estado y datos
-- Servicios por feature; datos **mock** en el MVP.
-- Posteriormente: integracion REST con backend (`/api/v1/...`).
-
-## ✅ Calidad
-- Convenciones: **Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`...)
-- Lint obligatorio en PRs.
-- Tests unitarios en features criticas (auth guard, servicios).
-
-## 🌿 Flujo Git recomendado
-- `main` -> estable.
-- `develop` -> integracion.
-- `feature/*` -> cada historia/tarea.
-- Releases: `release/x.y.z` + tag `vX.Y.Z`.
-
-## 🤖 CI (GitHub Actions)
-Workflow minimo: `npm ci` -> `ng lint` -> `ng build --configuration production` en cada PR a `develop`/`main`.
-
-## 🗺️ Roadmap (resumen)
-- **Sprint 1**: Layout + Routing + Auth mock.
-- **Sprint 2**: Cursos (tabla + dialogo CRUD mock) y Perfil.
-- **Sprint 3**: Tema (tokens/dark) y Accesibilidad base.
+---
 
 ## 📄 Licencia
 MIT
-=======
-# Growup
-
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
-
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

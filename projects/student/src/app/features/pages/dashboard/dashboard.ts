@@ -54,7 +54,7 @@ export class Dashboard implements OnInit {
    * automáticamente si el DashboardService cambia la señal original.
    */
   activeCourses = computed(() =>
-    this.allCourses().filter(c => c.status === 'active')
+    this.allCourses().filter(c => c.enrollmentStatus === 'active')
   );
 
   // Chart Config
